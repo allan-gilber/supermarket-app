@@ -2,7 +2,7 @@ import {Avatar, Button, Dropdown, Space} from 'antd';
 import React from 'react';
 import {DropDownMenu} from './DropDownMenu';
 import {PageHeaderContainer} from './styles';
-import {DownOutlined, UnorderedListOutlined, UserOutlined} from '@ant-design/icons';
+import {UnorderedListOutlined, UserOutlined} from '@ant-design/icons';
 
 export default function PageHeader() {
   return (
@@ -16,7 +16,9 @@ export default function PageHeader() {
           size='large'
           type='primary'
           shape={'round'}
-          style={{backgroundColor: 'var(--secondary-color)', textAlign: 'center', justifyContent: 'center'}}
+          style={{
+            backgroundColor: 'var(--secondary-color)', textAlign: 'center', justifyContent: 'center'
+          }}
         >
           <Space>
             <UnorderedListOutlined />

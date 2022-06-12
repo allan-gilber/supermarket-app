@@ -7,10 +7,9 @@ import Home from '../../presentation/Home';
 export default function Router() {
   return (
     <BrowserRouter>
+      <PageHeader />
       <Routes>
-        <Route path='/' element={<PageHeader/>}>
-          <Route exact path="/" element={<Home />}/>
-        </Route>
+        <Route exact path='/' element={<Home />}/>
       </Routes>
     </BrowserRouter>
   );
