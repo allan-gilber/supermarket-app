@@ -1,14 +1,7 @@
-import styled, {createGlobalStyle} from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 
 
 export const GlobalStyle = createGlobalStyle`
-    /* body{
-        margin: 0 auto;
-        padding: 0px 0px;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    } */
-
     * {
     margin: 0;
     padding: 0;
@@ -17,6 +10,9 @@ export const GlobalStyle = createGlobalStyle`
     flex-shrink: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
+  /* li, ul {
+    list-style-type: none;
+} */
   :root {
      /* Transições de viewport */
     --phone: 37.5rem;
@@ -43,6 +39,7 @@ export const GlobalStyle = createGlobalStyle`
     --shadow-box: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
     --success-color: #52c41a;
     --warning-color: #faad14;
-    --primary-color: #1890ff;
+    --primary-color: #5e81d1;
+    --secondary-color:  	#f16b44;
   }
 `;
