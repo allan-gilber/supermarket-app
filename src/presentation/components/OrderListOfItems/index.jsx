@@ -1,46 +1,96 @@
-import {Avatar, List, Skeleton} from 'antd';
-import React, {useState} from 'react';
+import {Avatar, Button, Empty, Input, InputNumber, List, Skeleton} from 'antd';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {MainContainer} from './styles';
 import ProductImg from '../../../data/assets/ProductImg.svg';
 import {ReactComponent as PlusIcon} from '../../../data/assets/PlusIcon.svg';
 import {ReactComponent as MinusIcon} from '../../../data/assets/MinusIcon.svg';
+import {GlobalContext} from '../../../business/contextsBusiness/GlobalContext';
 
 
 const OrderListOfItems = () => {
 
-  const [listData, setListData] = useState({
-    initLoading: false,
-    loading: false,
-    startingPosition: 0,
-    items : [
-      {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 158}, {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 158}, {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 158}, {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 158}, {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 158}, {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 158}, {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 158},
-      {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: '659'}
-    ]
-  });
+  const {
+    formData,
+    setFormData,
+    formDataHandler,
+    initLoading, setInitLoading, loading, setLoading
+  } = useContext(GlobalContext);
 
-  console.log('asda', listData.items.slice(listData.startingPosition, listData.startingPosition + 9));
+  useEffect(() => {
+    // setFormData({...formData, items: []});
+    setInitLoading(false);
+    setLoading(false);
+  }, []);
+  console.log('asda', formData);
+
+  const sumOneToQty = index => {
+    const newArray = formData.items;
+    const amount = newArray[index].qty_stock;
+    newArray[index] = {...newArray[index], qty_stock: amount + 1};
+    setFormData({...formData, items: newArray});
+  };
+
+  const removeOneToQty = index => {
+    const newArray = formData.items;
+    const amount = newArray[index].qty_stock;
+    if (amount === 1){
+      newArray.splice(index, index);
+    }
+    newArray[index] = {...newArray[index], qty_stock: amount - 1};
+    setFormData({...formData, items: newArray});
+  };
+
+  const removeProductFromList = index => {
+    const newArray = formData.items;
+    newArray.splice(index, 1);
+    setFormData({...formData, items: newArray});
+  };
 
   return (
     <MainContainer>
       <List
-        className="list-of-products"
-        loading={listData.initLoading}
+        loading={initLoading}
         itemLayout="vertical"
-        header={<div style={{fontWeight: '700', fontSize: '130%'}}>List of Products</div>}
+        header={<div
+          style={{fontWeight: '700', fontSize: '130%'}}
+          id='title'
+        >
+            List of Products
+        </div>}
         pagination={{
           onChange: page => {
             console.log(page);
-          }, pageSize: 10,
+            document.getElementById('title').scrollIntoView(
+              {behavior: 'smooth'},
+              'alignToTop'
+            );
+          },
+          pageSize: 10,
           size: 'small',
           style:{display: 'flex', alignItems: 'center', justifyContent: 'center'},
-          total: 10
+          hideOnSinglePage: true
         }}
-        dataSource={listData.items.slice(listData.startingPosition, listData.startingPosition + 9)}
+        dataSource={formData.items}
         style={{justifyContent: 'center'}}
+        locale={{emptyText:
+          <Empty
+            // image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+            // imageStyle={{
+            //   height: 60
+            // }}
+            description={
+              <span style={{fontWeight: '700'}}>
+              Your order is empty
+              </span>
+            }
+          >
+            <Button type="primary" shape='round'>Select New Product</Button>
+          </Empty>
+        }}
         renderItem={(item, index) => {
           return <List.Item>
             <Skeleton avatar title={false}
-              loading={listData.loading}
+              loading={loading}
               active>
               <List.Item.Meta
                 avatar={<Avatar src={ProductImg} onError />}
@@ -52,16 +102,30 @@ const OrderListOfItems = () => {
                       className='svg-icons'
                       fill='red'
                       filter='brightness(80%)'
+                      onClick={() => {item.qty_stock <= 1 ? removeProductFromList() : removeOneToQty(index);}}
                     />
                     <PlusIcon
                       className='svg-icons'
                       width={'1.5rem'}
                       fill='var(--success)'
                       filter='brightness(80%)'
+                      onClick={() => sumOneToQty(index)}
                     />
-                    <p key='lol'>
-                      {item.qty_stock}
-                    </p>
+                    <InputNumber
+                      className='input-qty-of-products'
+                      key={`qty-of-products${index}`}
+                      controls={false}
+                      bordered={false}
+                      min={1}
+                      max={item.qty_stock}
+                      onChange={event => {
+                        const newArray = formData.items;
+                        newArray[index] = {...newArray[index], qty_stock: event};
+                        setFormData({...formData, items: newArray});
+                      }}
+                      value={item.qty_stock}
+                      style={{width: '50%', minWidth: 'min(10%, 50px)'}}
+                    />
                   </div>
                 }
               />

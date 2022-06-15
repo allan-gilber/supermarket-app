@@ -1,9 +1,19 @@
 import {Button, DatePicker, Form, Input, message} from 'antd';
-import React from 'react';
+import React, {useContext} from 'react';
 import OrderListOfItems from '../OrderListOfItems';
 import {MainContainer} from './styles';
+import locale from 'antd/lib/locale/pt_BR';
+import {endOfDay, endOfTomorrow, format, isFuture} from 'date-fns';
+import {GlobalContext} from '../../../business/contextsBusiness/GlobalContext';
 
 export default function OrderForm(){
+  const {
+    formData,
+    setFormData,
+    formDataHandler,
+    initLoading, setInitLoading, loading, setLoading
+  } = useContext(GlobalContext);
+
   return (
     <MainContainer>
       <Form
@@ -13,14 +23,18 @@ export default function OrderForm(){
         onFinishFailed={data => {console.log('lol2', data);}}
         requiredMark={false}
         scrollToFirstError
-        style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems:'center', padding: '5% 0'}}
+        style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems:'center', padding: '5% 0 0 0'}}
         labelCol={{span: 6, offset: 0}}
+        locale={{emptyText: 'teste'}}
+        onEmptied={
+          <p>asd</p>
+        }
       >
         <div
-          style={{width: '50%', height: '80%'}}
+          style={{width: '60%', height: '80%'}}
         >
           <Form.Item
-            label='Client Name'
+            label={<p style={{fontWeight: '700', margin: '0'}}>Client Name</p>}
             name='clientName'
             rules={[
               {
@@ -38,12 +52,11 @@ export default function OrderForm(){
             ]}
           >
             <Input
-
               required
             />
           </Form.Item>
           <Form.Item
-            label='Shipping Date'
+            label={<p style={{fontWeight: '700', margin: '0'}}>Shipping Date</p>}
             name='shippingDate'
             rules={[
               {
@@ -51,27 +64,27 @@ export default function OrderForm(){
                 message: 'Please, insert a valid date!'
               }
             ]}
+
           >
             <DatePicker
               mode='date'
+              disabledDate={date => {
+                return date && !isFuture(new Date(date._d));
+              }}
+              format={'DD-MM-YYYY'}
+              // locale={locale}
+              placeholder={format(endOfTomorrow(), 'dd-MM-yyyy')}
+              placement={'topLeft'}
+              showNow={false}
+              showToday={false}
+              onChange={value => {
+                setFormData({...formData, shippingDate: value});
+              }}
             />
           </Form.Item>
-          {/* <Form.Item
-            label='Client Name'
-            name='ClientName'
-            rules={[
-              {
-                required: true,
-                message: 'Please, insert your name!'
-              }
-            ]}
-          >
-            <Input
-            />
-          </Form.Item> */
-          }
           <Form.Item
-            style={{width: '100%', minHeight: '12rem'}}
+            style={{width: '100%', minHeight: '10rem'
+            }}
           >
             <OrderListOfItems/>
           </Form.Item>
@@ -87,7 +100,8 @@ export default function OrderForm(){
             htmlType="submit"
             style={{
               width: '100%',
-              height:'100%'
+              height:'100%',
+              marginBottom: '2rem'
             }}
             shape={'round'}
           >
