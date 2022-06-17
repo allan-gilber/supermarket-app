@@ -1,17 +1,14 @@
-import {Button, DatePicker, Form, Input, message} from 'antd';
+import {Button, DatePicker, Form, Input} from 'antd';
 import React, {useContext} from 'react';
 import OrderListOfItems from '../OrderListOfItems';
 import {MainContainer} from './styles';
-import locale from 'antd/lib/locale/pt_BR';
-import {endOfDay, endOfTomorrow, format, isFuture} from 'date-fns';
+import {endOfTomorrow, format, isFuture} from 'date-fns';
 import {GlobalContext} from '../../../business/contextsBusiness/GlobalContext';
 
 export default function OrderForm(){
   const {
     formData,
-    setFormData,
-    formDataHandler,
-    initLoading, setInitLoading, loading, setLoading
+    setFormData
   } = useContext(GlobalContext);
 
   return (
@@ -19,16 +16,12 @@ export default function OrderForm(){
       <Form
         name='orderList'
         initialValues={{remember: true}}
-        onFinish={data => {console.log('lol', data);}}
-        onFinishFailed={data => {console.log('lol2', data);}}
+        onFinish={data => {console.log('finished', data);}}
+        onFinishFailed={data => {console.log('failure', data);}}
         requiredMark={false}
         scrollToFirstError
         style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems:'center', padding: '5% 0 0 0'}}
         labelCol={{span: 6, offset: 0}}
-        locale={{emptyText: 'teste'}}
-        onEmptied={
-          <p>asd</p>
-        }
       >
         <div
           style={{width: '60%', height: '80%'}}
@@ -42,8 +35,8 @@ export default function OrderForm(){
                 message: 'Please, insert your name!'
               },
               {
-                pattern: new RegExp(/^[a-zA-Z0-9]*$/),
-                message: 'Please, insert a valid name.'
+                pattern: new RegExp(/^[a-z ,.'-]+$/i),
+                message: 'Please, insert a valid name (no special characters).'
               }
               , {
                 min:7,
@@ -72,7 +65,6 @@ export default function OrderForm(){
                 return date && !isFuture(new Date(date._d));
               }}
               format={'DD-MM-YYYY'}
-              // locale={locale}
               placeholder={format(endOfTomorrow(), 'dd-MM-yyyy')}
               placement={'topLeft'}
               showNow={false}
@@ -95,7 +87,7 @@ export default function OrderForm(){
             alignItems: 'center'
           }}
         >
-          <Button
+          {formData.items.length ? <Button
             type="primary"
             htmlType="submit"
             style={{
@@ -106,7 +98,7 @@ export default function OrderForm(){
             shape={'round'}
           >
           Submit
-          </Button>
+          </Button> : null}
         </Form.Item>
       </Form>
     </MainContainer>

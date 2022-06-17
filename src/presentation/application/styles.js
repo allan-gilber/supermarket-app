@@ -9,12 +9,11 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     flex-shrink: 0;
     border-radius: 4px;
-    /* overflow: hidden; */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
   #root {
-    width: 100vw;
-    height: 100vh;
+    width: max(100vw, 360px);
+    height: max(100vh, 640px);
     overflow: hidden;
     background:var(--background-white);
   }
@@ -31,9 +30,7 @@ export const GlobalStyle = createGlobalStyle`
 	--details: 'yellow';
     --secondary: 'brown';
     --disabled: 'gray';
-    // --error: ${({settings}) => settings?.colors.error} : "#DA1E28";
 	--error: #DA1E28;
-    /* --success: ${({settings}) => settings?.colors.success}; */
 	--success: #24A148;
     --warning: 'red';
     --btn-text: 'black';
