@@ -2,14 +2,9 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.div`
 display: flex;
-position: relative;
-background:#E6E6E6;
-flex-direction: column;
 align-items: center;
-width: 100vw;
-height: 100vh;
-
-div {
-
-}
+justify-content: center;
+width: min(100%, 850px);
+min-height: 26rem;
+background-color: #ffffff;
 `;

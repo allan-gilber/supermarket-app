@@ -1,0 +1,7 @@
+import {sortByAsc} from './sortByAsc/index';
+import {filterItemsByString} from './filterProducts/index';
+
+export const sortByAscAndFilterProducts = (itemsArray, string) => {
+  const sortedArray = itemsArray.sort(sortByAsc);
+  return filterItemsByString(sortedArray, string);
+};
