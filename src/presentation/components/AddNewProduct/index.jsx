@@ -8,19 +8,16 @@ const AddNewProduct = () => {
     setOpenModal
   } = useContext(GlobalContext);
   return (
-    <>
-
-      <Button
-        type="primary"
-        shape='round'
-        onClick={() => setOpenModal(true)}
-        key={'insertNewItemButton'}
-        title='teste'
-      >
+    <Button
+      type="primary"
+      shape='round'
+      onClick={() => setOpenModal(true)}
+      key={'insertNewItemButton'}
+      title='teste'
+    >
         Add New Product
-        <ModalForNewProducts/>
-      </Button>
-    </>
+      <ModalForNewProducts/>
+    </Button>
   );
 };
 
