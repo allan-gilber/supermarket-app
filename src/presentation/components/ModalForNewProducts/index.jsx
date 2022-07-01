@@ -1,13 +1,15 @@
 import {Avatar, Empty, Input, List, Modal, Skeleton} from 'antd';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {GlobalContext} from '../../../business/contextsBusiness/GlobalContext';
 import {addNewItemToList} from '../../../business/handleAddProductLogic';
 import {Title, MainContainer} from './styles';
 import ProductImg from '../../../data/assets/ProductImg.svg';
-import {sortByAscAndFilterProducts} from '../../../business/sortByAscAndFilterProducts';
+import {getProducListByName} from '../../../business/axiosRequistions';
+
 
 const ModalForNewProducts = () => {
   const maxProductLimit = 5;
+  let searchInterval;
   const {
     searchInput,
     setSearchInput,
@@ -18,8 +20,24 @@ const ModalForNewProducts = () => {
     initLoading,
     setInitLoading,
     loading,
-    searchInputLoading
+    searchInputLoading,
+    setSearchInputLoading,
+    setLoading
   } = useContext(GlobalContext);
+
+  const getNewListOfProducts = async () => {
+    const newProductList = await getProducListByName(searchInput);
+    setInitLoading(false);
+    setLoading(false);
+    setSearchInputLoading(false);
+    setFormData({...formData, searchList: newProductList});
+  };
+
+  useEffect(() => {
+    searchInterval = setTimeout(() => {
+      getNewListOfProducts();
+    }, 1000);
+  }, [ searchInput ]);
 
 
   return (
@@ -49,14 +67,15 @@ const ModalForNewProducts = () => {
           value={searchInput}
           style={{marginBottom: '2rem', width: '100%'}}
           onChange={event => {
+            setSearchInputLoading(true);
+            clearTimeout(searchInterval);
             setSearchInput(event.target.value);
           }}
         />
         <List
           loading={initLoading}
           itemLayout="vertical"
-          dataSource={sortByAscAndFilterProducts(formData.mockItems, searchInput)
-          }
+          dataSource={formData.searchList}
           style={{justifyContent: 'center'}}
           locale={{
             emptyText:
@@ -87,17 +106,17 @@ const ModalForNewProducts = () => {
                   <List.Item.Meta
                     className={'teste'}
                     avatar={<Avatar src={ProductImg} onError />}
-                    title={<p>{item.name}</p>}
+                    title={<p>{item.product_name}</p>}
                     description={
                       <div
-                        key={`${item.name + index}`}
+                        key={`${item.product_name + index}`}
                         style={{
                           display: 'block',
                           width: '50%',
                           minWidth: 'min(10%, 50px)'
                         }}
                       >
-                        Quantity in stock: <b>{item.qty_stock}</b>
+                        Quantity in stock: <b>{item.product_qty_stock}</b>
                       </div>
                     }
                   />

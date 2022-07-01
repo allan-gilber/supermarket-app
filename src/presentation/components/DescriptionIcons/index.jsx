@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {ReactComponent as PlusIcon} from '../../../data/assets/PlusIcon.svg';
 import {ReactComponent as MinusIcon} from '../../../data/assets/MinusIcon.svg';
-import {removeOneToQty, removeProductFromList, sumOneToQty} from '../../../business/ProductQtyBusiness';
+import {removeOneToQty, removeProductFromList, sumOneToQty} from '../../../business/productQtyBusiness';
 import {GlobalContext} from '../../../business/contextsBusiness/GlobalContext';
 import {InputNumber} from 'antd';
 import PropTypes from 'prop-types';

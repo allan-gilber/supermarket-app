@@ -13,45 +13,14 @@ const GlobalState = props => {
     startingPosition: 0,
     readOnly: true,
     shippingDate: null,
-    items : [
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 3},
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 4},
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1}
-    ],
+    searchList: [],
+    items : [],
     mockItems: [
       {id: '16', name: 'AZEITE PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
       {id: '16', name: 'AZEITE PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 3},
       {id: '16', name: 'AZEITE PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 4},
       {id: '16', name: 'AZEITE PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
       {id: '16', name: 'AZEITE PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1}
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1},
-      // {id: '16', name: 'AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML', price: '20.49', qty_stock: 1}
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1},
-      // {id: '18', name: 'BEBIDA ENERGÉTICA VIBE 2L', price: '8.99', qty_stock: 1}
     ]
   });
 

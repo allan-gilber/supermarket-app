@@ -15,18 +15,18 @@ const OrderListOfItems = () => {
     setInitLoading,
     loading,
     setLoading,
-    setFormData
+    setFormData,
+    searchInput
   } = useContext(GlobalContext);
 
   useEffect(() => {
     setFormData({...formData, items: []});
-    setInitLoading(false);
-    setLoading(false);
   }, []);
+
+
   return (
     <MainContainer>
       <List
-        loading={initLoading}
         itemLayout="vertical"
         header={
           <ListHeader>
